@@ -18,4 +18,18 @@ Step by step
 
 Here are the steps for how we build the PHP package:
 
-#. 
+#. check the dependences for MariaDB, PHP and Nginx,
+#. bootstrap (python bootstrap.py) the project. boilerplate.
+#. build MariaDB
+
+Dependences List
+----------------
+
+Build MariaDB
+-------------
+
+Here are the simple steps to build MariaDB::
+
+  $ cd boilerplate
+  $ bin/buildout -N -c buildout-init.cfg install init-mariadb
+  $ bin/buildout -N install build-mariadb
