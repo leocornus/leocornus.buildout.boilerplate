@@ -24,6 +24,7 @@ Here are the steps for how we build the PHP package:
 #. bootstrap (python bootstrap.py) the project. boilerplate.
 #. build MariaDB
 #. build PHP and PHP-FPM, PHP depends on MariaDB
+#. build Nginx web server.
 
 Dependences List
 ''''''''''''''''
@@ -54,3 +55,13 @@ Here are the steps to build PHP-FPM::
   $ cd boilerplate
   $ bin/buildout -N -c buildout-init.cfg install init-php
   $ bin/buildout -N install build-php
+
+Build Nginx
+'''''''''''
+
+Here are the steps to build PHP-FPM::
+
+  $ cd boilerplate
+  $ bin/buildout -N -c buildout-init.cfg install init-nginx
+  $ bin/buildout -N install build-nginx
+
