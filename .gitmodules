@@ -1,0 +1,3 @@
+[submodule "cfgrepo"]
+	path = cfgrepo
+	url = https://github.com/leocornus/leocornus.buildout.cfgrepo.git
