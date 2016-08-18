@@ -1,0 +1,10 @@
+# buildout folders
+bin
+etc
+parts
+eggs
+downloads
+var
+
+# buildout temp file .installed.cfg
+.installed.cfg
