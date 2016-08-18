@@ -13,6 +13,21 @@ Here are the minimum requirement:
 - Elasticsearch for the search engine
 - Supervisord as the process manager
 
+.. contents:: Table of contents
+   :depth: 5
+
+Overview
+--------
+
+folder structure
+
+How buildout config files are organized?
+
+Buildout will use the last occurrence of this variable to overwrite
+all previous occurrences.
+In this case here, settings in file **buildout-local.cfg** 
+will be the last occurrence.
+
 Step by step
 ------------
 
@@ -74,11 +89,35 @@ using the include section for all in one superver config::
   $ bin/buildout -N -c buildout-init.cfg install init-sys
   $ bin/buildout -N install build-sys
 
+Strategy for configruation files
+--------------------------------
+
+Configuration files should be stored within the application.
+It is reasonable to check the configuration file inside
+the correspoding application.
+By default generated configuration files are stored in folder::
+
+  ${settings:etc-directory}
+
+It is defined in file **config/base.cfg**, using 
+**${buildout:directory}/etc** as the default value.
+We will use the default value here for all applications.
+So application config files will be stored in the **etc** folder
+of the application itself.
+For example:
+
+- Config files for MaridDB are in folder **mariadb/etc**
+- Config files for PHP are in folder **php/etc**
+
+Strategy for log files
+----------------------
+
+
+
 Questions
 ---------
 
 - the strategy for configuration files
-- the strategy for log files
-- the strategy for pid files
+- the strategy for log files pid files
 - How to generate the all in one supervisord.
   Using the **include** section
