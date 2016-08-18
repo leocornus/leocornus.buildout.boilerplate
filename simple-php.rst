@@ -112,7 +112,17 @@ For example:
 Strategy for log files
 ----------------------
 
+The buildout variable for log files is::
 
+  ${settings:log-directory}
+
+It is more convenient if we keep all log files in one location.
+It is easier for analysing, debuging, and maintainence.
+So in our case here, we will set the log folder to **sys/var/log**.
+Here is the settings in file **buildout-local.cfg**::
+
+  [settings]
+  log-directory = {:sys-folder}/var/log
 
 Questions
 ---------
