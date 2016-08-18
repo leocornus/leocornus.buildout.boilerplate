@@ -3,6 +3,7 @@ bin
 etc
 parts
 eggs
+develop-eggs
 downloads
 var
 
