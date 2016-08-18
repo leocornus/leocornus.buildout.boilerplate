@@ -8,3 +8,6 @@ var
 
 # buildout temp file .installed.cfg
 .installed.cfg
+
+# temp file for vim.
+.*.swp
