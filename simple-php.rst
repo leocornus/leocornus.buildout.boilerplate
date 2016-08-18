@@ -65,3 +65,20 @@ Here are the steps to build PHP-FPM::
   $ bin/buildout -N -c buildout-init.cfg install init-nginx
   $ bin/buildout -N install build-nginx
 
+Build sys (All in one)
+''''''''''''''''''''''
+
+using the include section for all in one superver config::
+
+  $ cd boilerplate
+  $ bin/buildout -N -c buildout-init.cfg install init-sys
+  $ bin/buildout -N install build-sys
+
+Questions
+---------
+
+- the strategy for configuration files
+- the strategy for log files
+- the strategy for pid files
+- How to generate the all in one supervisord.
+  Using the **include** section
