@@ -29,7 +29,7 @@ In this case here, settings in file **buildout-local.cfg**
 will be the last occurrence.
 
 Strategy for configruation files
---------------------------------
+''''''''''''''''''''''''''''''''
 
 Configuration files should be stored within the application.
 It is reasonable to check the configuration file inside
@@ -49,7 +49,7 @@ For example:
 - Config files for PHP are in folder **php/etc**
 
 Strategy for log files
-----------------------
+''''''''''''''''''''''
 
 The buildout variable for log files is::
 
@@ -64,7 +64,7 @@ Here is the settings in file **buildout-local.cfg**::
   log-directory = {:sys-folder}/var/log
 
 Strategy for Nginx vhost
-------------------------
+''''''''''''''''''''''''
 
 We will use virtual host for Nginx to server multiple applications.
 This section will discuss the strategy to manage Nginx virtual host.
