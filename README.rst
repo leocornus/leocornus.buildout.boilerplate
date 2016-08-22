@@ -9,7 +9,7 @@ Buildout cases
 
 Here are some builout cases that we could get started:
 
-- `Simple PHP build package <simple-php.rst>`_ which will include Nginx, MySQL, PHP, and PHP-FPM
+- `Simple PHP build package <simple-php.rst>`_ which will include Nginx, MariaDB, PHP, and PHP-FPM
 
 License
 -------
