@@ -63,6 +63,14 @@ Here is the settings in file **buildout-local.cfg**::
   [settings]
   log-directory = {:sys-folder}/var/log
 
+Log rotation strategy
+'''''''''''''''''''''
+
+The strategy for log rotation.
+Mainly, we need worry about the Nginx server's log file,
+especially the access log file.
+We need rotate it every day!
+
 Strategy for Nginx vhost
 ''''''''''''''''''''''''
 
@@ -209,11 +217,8 @@ Here is the minimium **buildout.cfg** file::
   fastcgi_pass = phpfpm
   nginx-build-location = ${settings:nginx-build-location}
 
-Questions
----------
+TODO & Questions
+----------------
 
-- the strategy for configuration files
-- the strategy for log files pid files
+- the strategy for log rotation
 - the strategy for data folder
-- How to generate the all in one supervisord.
-  Using the **include** section
