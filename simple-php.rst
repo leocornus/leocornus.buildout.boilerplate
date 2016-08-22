@@ -76,15 +76,13 @@ Here are the steps for how we build the PHP package:
 
 #. clone the boilerplate, update submodule
 #. check the dependences for MariaDB, PHP and Nginx,
+   (TODO: a buildout part to check dependences and install them)
 #. edit the buildout-local.php to fit your local environment
-#. bootstrap (python bootstrap.py) the project. boilerplate.
-#. build MariaDB
-#. build PHP and PHP-FPM, PHP depends on MariaDB
-#. build Nginx web server
-#. build the phpinfor app
-#. build Nodejs and Parsoid
-#. build Java and Elasticsearch server
-#. build the wpmw app, WordPress and MediaWiki
+#. bootstrap (python bootstrap.py) the project.
+#. execute the initialization buildout parts, **buildout-init.cfg**.
+   bin/buildout -N -c buildout-init.cfg
+#. execute the buildout: **bin/buildout -N**
+#. start all services by using supervisord.
 
 Dependences list
 ''''''''''''''''
@@ -94,53 +92,34 @@ TODO: install dependences for different platform.
 Local settings
 ''''''''''''''
 
-Define your softwar stack here.
-TODO: important local setting variables:
+Define your software stack here.
+We have to use the absolute pathe for the important 
+local setting variables **${settings:base-folder}**.
+The file **buildout-local.cfg** will be symlinked to all
+buildout components, including PHP, MariaDB, Nginx, etc.
+The dependence between buildout components 
+are tied with this variable.
 
-- base folder
+For example, when we build PHP we need find MariaDB library.
+The base-folder will be used to find the location for 
+MariaDB binary files.
 
 Initialize buildout
 '''''''''''''''''''
 
-Bootstrap the buildout folder for each software.
+Bootstrap the buildout folder for each software.::
+
+  $ cd boilerplate
+  $ bin/buildout -N -c buildout-init.cfg
 
 Build
 '''''
 
 execute the buildout, build, install, and config
-
-Build MariaDB
-
-Here are the simple steps to build MariaDB::
+Here are the simple steps::
 
   $ cd boilerplate
-  $ bin/buildout -N -c buildout-init.cfg install init-mariadb
-  $ bin/buildout -N install build-mariadb
-
-
-Build PHP-FPM
-
-Here are the steps to build PHP-FPM::
-
-  $ cd boilerplate
-  $ bin/buildout -N -c buildout-init.cfg install init-php
-  $ bin/buildout -N install build-php
-
-Build Nginx
-
-Here are the steps to build PHP-FPM::
-
-  $ cd boilerplate
-  $ bin/buildout -N -c buildout-init.cfg install init-nginx
-  $ bin/buildout -N install build-nginx
-
-Build sys (All in one)
-
-using the include section for all in one superver config::
-
-  $ cd boilerplate
-  $ bin/buildout -N -c buildout-init.cfg install init-sys
-  $ bin/buildout -N install build-sys
+  $ bin/buildout -N
 
 Initilize server & data
 '''''''''''''''''''''''
@@ -154,6 +133,11 @@ The part **init-mariadb** will initialize the MariaDB server.::
 
 Start services
 ''''''''''''''
+
+Using supervisord to start servvices::
+
+  $ cd boilerplate
+  $ sudo sys/bin/supervisord
 
 Applications
 ------------
