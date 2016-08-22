@@ -181,20 +181,16 @@ Here are the steps to create the simple PHP application:
 #. execute buildout part init-app-phpinfo
 #. Now we have a empty buildout.cfg file in folder **app-phpinfo**.
 #. edit the **buildout.cfg** to set up buildout variables:
-
-   - hosts:fronteend-ip
-   - hosts:frontend-hostname
-   - ports:nginx
-   - settings:document-root
-
+     - hosts:fronteend-ip
+     - hosts:frontend-hostname
+     - ports:nginx
+     - settings:document-root
 #. edit the **buildout.cfg** to customize the part
    **nginx-fpm-server** for the following variables:
-
-   - error_log
-   - access_log
-   - fastcgi_pass
-   - nginx-build-location
-
+     - error_log
+     - access_log
+     - fastcgi_pass
+     - nginx-build-location
 #. execute buildout, then will will have our first simple PHP
    application ready.
 
