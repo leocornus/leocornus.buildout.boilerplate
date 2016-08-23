@@ -1,7 +1,8 @@
 leocornus.buildout.boilerplate
 ==============================
 
-The boilerplate to demonstrate how to use leocornus.buildout.cfgrepo_
+The buildout boilerplate to demonstrate 
+how to use leocornus.buildout.cfgrepo_
 to build software stack.
 
 Buildout cases
