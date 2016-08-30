@@ -21,3 +21,25 @@ Here are the brief steps:
 * execute buildout
 * execute update maintenance script
 * restart server and test...
+
+Separation of Article Path and Script Path
+------------------------------------------
+
+Setparte the article path (/wiki/$1) from 
+the script path (/w/index.php) for MediaWiki instance.
+
+Thie separation will bring some flexibility and security to
+a MediaWiki installation.
+
+About MW_INSTALL_PATH
+'''''''''''''''''''''
+
+If we set up the environment variable **MW_INSTALL_PATH**,
+we need check to make sure it point to the right directory.
+
+About Parsoid configuration
+'''''''''''''''''''''''''''
+
+The parsoid configuration has a setting to tell the URL to
+wiki api.php.
+It should be updated to **/w/api.php**.
