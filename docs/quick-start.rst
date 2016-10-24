@@ -10,7 +10,7 @@ Here are the steps::
 
   $ cd /usr/dev
   $ git clone https://github.com/leocornus/leocornus.buildout.boilerplate.git boilerplate
-  $ cd bloierplate
+  $ cd boilerplate
   $ git submodule init
   $ git submodule update
 
@@ -21,6 +21,7 @@ We need edit the **buildout-local.cfg** to update
 the **base-folder** variable.
 Here are the commands:: 
 
+  $ cd /usr/dev/boilerplate
   $ python bootstrap.py
   $ bin/buildout -N -c buildout-init.cfg
   $ bin/buildout -N
