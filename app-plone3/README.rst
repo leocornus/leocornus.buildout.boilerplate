@@ -8,3 +8,7 @@ Steps:
 * install Python 2.4.6, compile from sources.
 * install Zope
 * 
+
+Using collective/buildout.python to build python 2.4
+
+
