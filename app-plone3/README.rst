@@ -6,17 +6,19 @@ We need build Plone 3 for some old stuff.
 Steps:
 
 * install Python 2.4.6, compile from sources. using
-  **python.buildout**.
+  `buildout.python <https://github.com/collective/buildout.python>`_.
+* using file **bootstrap.py** and **buildout.cfg** on folder
+  **buildout.python** to build Python 2.4.6 on Ubuntu
 * install zeocluster using buildout.
-* 
-
-Using collective/buildout.python to build python 2.4
+* migrate Zope content.
+* reset password.
 
 Content Migration
 -----------------
 
 If you we are using ZODB as the database, the migration will be
-as simple as just copy the **Data.fs** file to new Zope instance.
+as simple as just copy the **Data.fs** file and 
+**Data.fs.index** to zeocluster filestorage folder.
 
 Another choice for migration is using export and import tool
 from ZMI.
