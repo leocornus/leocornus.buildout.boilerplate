@@ -7,8 +7,16 @@ develop-eggs
 downloads
 var
 
+# ignore the legacy svn folder.
+.svn
+
 # buildout temp file .installed.cfg
 .installed.cfg
 
 # temp file for vim.
 .*.swp
+
+# ignore python development files.
+*.pyc
+*.pyo
+*.egg-info
