@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="leocornus.bookkeeping">
+<body>
+
+<metal:main fill-slot="main">
+
+  <div tal:replace="structure provider:plone.abovecontenttitle"/>
+
+  <h1 class="documentFirstHeading">
+    <metal:field use-macro="python:here.widget('title', mode='view')">
+      Title or id
+    </metal:field>
+  </h1>
+
+  <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+  <p class="documentDescription">
+    <metal:field use-macro="python:here.widget('description', mode='view')">
+      Description
+    </metal:field>
+  </p>
+
+  <div tal:replace="structure provider:plone.abovecontentbody" />
+
+  <a href="#" tal:attributes="href here/getBaseUrl" ><input class="standalone" type="button" value="Overall Summary" /></a> 
+  <a href="#" tal:attributes="href view/getYearViewUrl"><input class="standalone" type="button" value="Year Summary" /></a>
+  <a href="#" tal:attributes="href view/getCategoryViewUrl"><input class="standalone" type="button" value="Category Summary" /></a>
+  <a href="#" tal:attributes="href view/getAddTrxUrl"><input class="standalone" type="button" value="Add Transaction" /></a>
+
+  <table class='listing'><tbody>
+    <tr>
+      <th>Date</th>
+      <th>Subtotal</th>
+      <th>GST</th>
+      <th>PST</th>
+      <th><strong>Total</strong></th>
+    </tr>
+    <tr>
+      <td><span tal:replace="here/transactionDate"/></td>
+      <td><span tal:replace="here/subtotal"/></td>
+      <td><span tal:replace="here/gst"/></td>
+      <td><span tal:replace="here/pst"/></td>
+      <td><strong><span tal:replace="python: view.monetary(here.transactionTotal())"/></strong></td>
+    </tr>
+  </tbody></table>
+
+</metal:main>
+
+</body>
+</html>

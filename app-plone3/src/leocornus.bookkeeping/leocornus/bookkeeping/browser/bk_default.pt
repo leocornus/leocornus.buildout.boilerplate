@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="leocornus.bookkeeping">
+<body>
+
+<metal:main fill-slot="main">
+
+  <div tal:replace="structure provider:plone.abovecontenttitle"/>
+
+  <h1 class="documentFirstHeading">
+    <metal:field use-macro="python:here.widget('title', mode='view')">
+      Title or id
+    </metal:field>
+  </h1>
+
+  <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+  <p class="documentDescription">
+    <metal:field use-macro="python:here.widget('description', mode='view')">
+      Description
+    </metal:field>
+  </p>
+
+  <div tal:replace="structure provider:plone.abovecontentbody" />
+
+  <a href="createObject?type_name=BKTransaction"><input class="standalone" type="button" value="Add Transaction" /></a>
+
+  <h3>Quick Summary By Year</h3>
+  <table class='listing'><tbody>
+    <tr>
+      <th rowspan="2">Year</th>
+      <tal:block tal:repeat="trxType here/transactionTypes">
+        <th colspan="4"><span tal:replace="trxType"/></th>
+      </tal:block>
+    </tr>
+    <tr>
+      <tal:block tal:repeat="trxType here/transactionTypes">
+        <th>Subtotal</th>
+        <th>GST</th>
+        <th>PST</th>
+        <th><strong>Total</strong></th>
+      </tal:block>
+    </tr>
+    <!-- one row for each year. -->
+    <tal:block tal:repeat="year view/getYears">
+      <tr tal:define="oddrow repeat/year/odd;
+                      yearUrl python: view.getYearViewUrl(year)"
+          tal:attributes="class python: oddrow and 'odd' or 'even'">
+        <td width="36px">
+          <a href="#" tal:attributes="href yearUrl"><span tal:replace="year"/></a>
+        </td>
+        <!-- repeat type for each year -->
+        <tal:block tal:repeat="trxType here/transactionTypes">
+          <tal:block tal:define="amounts python: view.getAmounts(trxType, year)">
+          <td align="right" width="36px">
+            <span tal:replace="python: view.monetary(amounts[0])"/>
+          </td>
+          <td align="right" width="36px">
+            <span tal:replace="python: view.monetary(amounts[1])"/>
+          </td>
+          <td align="right" width="36px">
+            <span tal:replace="python: view.monetary(amounts[2])"/>
+          </td> 
+          <td align="right" width="36px">
+            <strong><span tal:replace="python: view.monetary(sum(amounts))"/></strong>
+          </td>
+         </tal:block>
+        </tal:block>
+      </tr>
+    </tal:block>
+  </tbody></table>
+
+  <!-- footer. -->
+  <div metal:use-macro="here/document_relateditems/macros/relatedItems">
+    Show related items if they exist
+  </div>
+
+  <div tal:replace="structure provider:plone.belowcontentbody" />
+
+</metal:main>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="leocornus.bookkeeping">
+<body>
+
+<metal:main fill-slot="main">
+
+  <div tal:replace="structure provider:plone.abovecontenttitle"/>
+
+  <h1 class="documentFirstHeading">
+    <metal:field use-macro="python:here.widget('title', mode='view')">
+      Title or id
+    </metal:field>
+  </h1>
+
+  <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+  <p class="documentDescription">
+    <metal:field use-macro="python:here.widget('description', mode='view')">
+      Description
+    </metal:field>
+  </p>
+
+  <div tal:replace="structure provider:plone.abovecontentbody" />
+
+  <a href="bk_default_view"><input class="standalone" type="button" value="Overall Summary" /></a> 
+  <a href="#" tal:attributes="href python: 'bk_year_view?year=' + view.year"><input class="standalone" type="button" value="Year Summary" /></a>
+  <a href="createObject?type_name=BKTransaction"><input class="standalone" type="button" value="Add Transaction" /></a>
+
+  <h3>Transactions List for Category [<span tal:replace="python: view.trxType + ':' + view.category"/>] 
+    on Year [<span tal:replace="python: view.year"/>]</h3>
+
+  <table class='listing'><tbody>
+    <tr>
+      <th>##</th>
+      <th>Date</th>
+      <th>Title</th>
+      <th>Subtotal</th>
+      <th>GST/HST</th>
+      <th>PST</th>
+      <th><strong>Total</strong></th>
+    </tr>
+    <tal:block tal:repeat="transaction view/getTransactions">
+    <tr tal:define="oddrow repeat/transaction/odd;
+                    summary transaction/summary"
+        tal:attributes="class python: oddrow and 'odd' or 'even'">
+      <td><span tal:replace="repeat/transaction/number"/></td>
+      <td><span tal:replace="transaction/date"/></td>
+      <td><a href="#" tal:attributes="href transaction/editUrl"><span tal:replace="transaction/title"/></a></td>
+      <td align="right"><span tal:replace="python: view.monetary(summary['subtotal'])"/></td>
+      <td align="right"><span tal:replace="python: view.monetary(summary['gst'])"/></td>
+      <td align="right"><span tal:replace="python: view.monetary(summary['pst'])"/></td>
+      <td align="right"><strong><span tal:replace="python: view.monetary(sum(summary.values()))"/></strong></td>
+    </tr>
+    </tal:block>
+    <tr>
+      <th colspan="3" align="right"><strong>
+        Total:
+        <br/>BP (<span tal:replace="view/categoryBp"/>%):
+      </strong></th>
+      <th align="right"><strong>
+        <span tal:replace="python: view.monetary(view.categoryTotal['subtotal'])"/>
+        <tal:block tal:condition="python: view.categoryBp != 100">
+          <br/>(<span tal:replace="python: view.monetary(view.categoryBpTotal['subtotal'])"/>)
+        </tal:block>
+      </strong></th>
+      <th align="right"><strong>
+        <span tal:replace="python: view.monetary(view.categoryTotal['gst'])"/>
+        <tal:block tal:condition="python: view.categoryBp != 100">
+          <br/>(<span tal:replace="python: view.monetary(view.categoryBpTotal['gst'])"/>)
+        </tal:block>
+      </strong></th>
+      <th align="right"><strong>
+        <span tal:replace="python: view.monetary(view.categoryTotal['pst'])"/>
+        <tal:block tal:condition="python: view.categoryBp != 100">
+          <br/>(<span tal:replace="python: view.monetary(view.categoryBpTotal['pst'])"/>)
+        </tal:block>
+      </strong></th>
+      <th align="right"><strong>
+        <span tal:replace="python: view.monetary(sum(view.categoryTotal.values()))"/>
+        <tal:block tal:condition="python: view.categoryBp != 100">
+          <br/>(<span tal:replace="python: view.monetary(sum(view.categoryBpTotal.values()))"/>)
+        </tal:block>
+      </strong></th>
+    </tr>
+  </tbody></table>
+
+</metal:main>
+
+</body>
+</html>

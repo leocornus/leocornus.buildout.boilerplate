@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="leocornus.bookkeeping">
+<body>
+
+<metal:main fill-slot="main">
+
+<script language="javascript">
+    function toggleShowHide(module) {
+      var currentModule = document.getElementById(module).style.display;
+      if (currentModule == 'none') {
+          document.getElementById(module).style.display = 'block';
+      } else if (currentModule == 'block') {
+          document.getElementById(module).style.display = 'none';
+      }
+    }
+</script>
+
+  <div tal:replace="structure provider:plone.abovecontenttitle"/>
+
+  <h1 class="documentFirstHeading">
+    <metal:field use-macro="python:here.widget('title', mode='view')">
+      Title or id
+    </metal:field>
+  </h1>
+
+  <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+  <p class="documentDescription">
+    <metal:field use-macro="python:here.widget('description', mode='view')">
+      Description
+    </metal:field>
+  </p>
+
+  <div tal:replace="structure provider:plone.abovecontentbody" />
+
+  <a href="bk_default_view"><input class="standalone" type="button" value="Overall Summary" /></a> 
+  <a href="createObject?type_name=BKTransaction"><input class="standalone" type="button" value="Add Transaction" /></a>
+
+  <h3>Year [<span tal:replace="python: view.year"/>] Summary</h3>
+
+  <table class='listing'><tbody>
+    <tr>
+      <tal:block tal:repeat="trxType here/transactionTypes">
+        <th><span tal:replace="trxType"/></th>
+      </tal:block>
+    </tr>
+    <tr>
+      <tal:block tal:repeat="trxType here/transactionTypes">
+        <td tal:define="typeSummary python: view.getTypeSummary(trxType);
+                        typeBpSummary python: view.getTypeBpSummary(trxType);">
+<table class='listing'><tbody>
+  <tr>
+    <th>Category</th>
+    <th>BP</th>
+    <th>Subtotal</th>
+    <th>GST/HST</th>
+    <th>PST</th>
+    <th><strong>Total</strong></th>
+  </tr>
+  <tal:block tal:repeat="category python: here.getCategories(trxType)">
+    <tr tal:define="oddrow repeat/category/odd;
+                    categoryBp python: view.getCategoryBuzPercent(trxType, category);
+                    showBp python: categoryBp != 100;
+                    categorySummary python: view.getCategorySummary(trxType, category);
+                    categoryBpSummary python: view.getCategoryBpSummary(trxType, category);
+                    categoryUrl python: view.getCategoryViewUrl(trxType, category)"
+        tal:attributes="class python: oddrow and 'odd' or 'even'">
+      <td><a href='#' tal:attributes='href categoryUrl'><span tal:replace="category"/></a></td>
+      <td align="middle"><span tal:replace="categoryBp"/>%</td>
+      <td align="right">
+        <span tal:replace="python: view.monetary(categorySummary['subtotal'])"/>
+        <tal:block tal:condition="showBp">
+          <br/>(<span tal:replace="python: view.monetary(categoryBpSummary['subtotal'])"/>)
+        </tal:block>
+      </td>
+      <td align="right">
+        <span tal:replace="python: view.monetary(categorySummary['gst'])"/>
+        <tal:block tal:condition="showBp">
+          <br/>(<span tal:replace="python: view.monetary(categoryBpSummary['gst'])"/>)
+        </tal:block>
+      </td>
+      <td align="right">
+        <span tal:replace="python: view.monetary(categorySummary['pst'])"/>
+        <tal:block tal:condition="showBp">
+          <br/>(<span tal:replace="python: view.monetary(categoryBpSummary['pst'])"/>)
+        </tal:block>
+      </td>
+      <td align="right"><strong>
+        <span tal:replace="python: view.monetary(sum(categorySummary.values()))"/>
+        <tal:block tal:condition="showBp">
+          <br/>(<span tal:replace="python: view.monetary(sum(categoryBpSummary.values()))"/>)
+        </tal:block>
+      </strong></td>
+    </tr>
+  </tal:block>
+  <tr>
+    <th colspan="2" align="right"><strong>Total:</strong></th>
+    <th align="right"><strong>
+      <span tal:replace="python: view.monetary(typeSummary['subtotal'])"/><br/>
+      (<span tal:replace="python: view.monetary(typeBpSummary['subtotal'])"/>)
+    </strong></th>
+    <th align="right"><strong>
+      <span tal:replace="python: view.monetary(typeSummary['gst'])"/><br/>
+      (<span tal:replace="python: view.monetary(typeBpSummary['gst'])"/>)
+    </strong></th>
+    <th align="right"><strong>
+      <span tal:replace="python: view.monetary(typeSummary['pst'])"/><br/>
+      (<span tal:replace="python: view.monetary(typeBpSummary['pst'])"/>)
+    </strong></th>
+    <th align="right"><strong>
+      <span tal:replace="python: view.monetary(sum(typeSummary.values()))"/><br/>
+      (<span tal:replace="python: view.monetary(sum(typeBpSummary.values()))"/>)
+    </strong></th>
+  </tr>
+</tbody></table>
+
+<!-- CSV output -->
+<input class="standalone" type="button" onclick="toggleShowHide('csv')" value="CSV Format" />
+<div id='csv' style='DISPLAY: none'>
+<strong>
+Category,bp,Subtotal,GST/HST,PST,Total<br/>
+  <tal:block tal:repeat="category python: here.getCategories(trxType)">
+    <tal:block tal:define="oddrow repeat/category/odd;
+                    categoryBp python: view.getCategoryBuzPercent(trxType, category);
+                    categorySummary python: view.getCategorySummary(trxType, category);
+                    categoryBpSummary python: view.getCategoryBpSummary(trxType, category);"
+    >
+<span tal:replace='category'/>,<span tal:replace='categoryBp'/>,<span tal:replace='categorySummary/subtotal'/>,<span tal:replace='categorySummary/gst'/>,<span tal:replace='categorySummary/pst'/>,<span tal:replace='python: sum(categorySummary.values())'/><br/>
+    </tal:block>
+ </tal:block>
+</strong>
+</div>
+        </td>
+      </tal:block>
+    </tr>
+  </tbody></table>
+
+</metal:main>
+
+</body>
+</html>

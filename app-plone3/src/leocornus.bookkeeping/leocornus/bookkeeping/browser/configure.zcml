@@ -1,0 +1,43 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:i18n="http://namespaces.zope.org/i18n"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="leocornus.bookkeeping"
+>
+
+  <!-- the default view for bookkeeping -->
+  <browser:page
+     name="bk_default_view"
+     for="leocornus.bookkeeping.interface.IBKFolder"
+     class=".bkviews.DefaultView"
+     template="bk_default.pt"
+     permission="zope2.View"
+  />
+
+  <!-- the year view for bookkeeping -->
+  <browser:page
+     name="bk_year_view"
+     for="leocornus.bookkeeping.interface.IBKFolder"
+     class=".bkviews.YearView"
+     template="bk_year.pt"
+     permission="zope2.View"
+  />
+
+  <!-- the category view for bookkeeping -->
+  <browser:page
+     name="bk_category_view"
+     for="leocornus.bookkeeping.interface.IBKFolder"
+     class=".bkviews.CategoryView"
+     template="bk_category.pt"
+     permission="zope2.View"
+  />
+
+  <!-- the category view for bookkeeping -->
+  <browser:page
+     name="trx_default_view"
+     for="leocornus.bookkeeping.interface.IBKTransaction"
+     class=".trxviews.DefaultView"
+     template="trx_default.pt"
+     permission="zope2.View"
+  />
+</configure>
