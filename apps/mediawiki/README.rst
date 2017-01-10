@@ -7,6 +7,7 @@ Here are the basic components:
 
 * php-fpm
 * Nginx virtual server
+* MariaDB database server and database users.
 * MediaWiki source code
 * Parsoic service / Node.js
 * ElasticSearch / Java infrastructure
@@ -25,3 +26,9 @@ Application customization
 
 * set to load the login page directly if user not logged in.
 * Homepage to list some cool thing.
+
+Tools
+-----
+
+* script to create database and database users
+* script to refresh the demo site every week.
