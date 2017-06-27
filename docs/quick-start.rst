@@ -31,5 +31,6 @@ Tweak local settings
 
 Local settings including the following items:
 
+* download / install versions
 * ports, hosts, ips, users, etc.
 * application configurations
