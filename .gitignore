@@ -7,7 +7,7 @@ develop-eggs
 downloads
 var
 
-# ignore the buildout configuration files in dub folder.
+# ignore the buildout configuration files in sub folder.
 # the follow files are all symlink to corresponding files in
 # main folder.
 */cfgrepo
