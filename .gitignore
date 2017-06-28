@@ -27,6 +27,9 @@ apps/*/buildout-local.cfg
 # buildout temp file .installed.cfg
 .installed.cfg
 
+# ignore the local.cfg.
+local.cfg
+
 # temp file for vim.
 .*.swp
 
