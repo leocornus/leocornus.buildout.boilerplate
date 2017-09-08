@@ -31,6 +31,7 @@ apps/*/buildout-local.cfg
 local.cfg
 
 # temp file for vim.
+*.swp
 .*.swp
 
 # ignore python development files.
