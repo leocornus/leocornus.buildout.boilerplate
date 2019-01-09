@@ -20,6 +20,8 @@ apps/*/cfgrepo
 apps/*/bootstrap.py
 apps/*/buildout-dev.cfg
 apps/*/buildout-local.cfg
+# tools folder
+tools/*/bootstrap.py
 
 # ignore the legacy svn folder.
 .svn
