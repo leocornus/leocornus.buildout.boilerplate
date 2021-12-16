@@ -1,3 +1,7 @@
+# the virtual environment files and folders.
+lib
+pyvenv.cfg
+
 # buildout folders
 bin
 etc
