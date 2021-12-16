@@ -10,6 +10,7 @@ Buildout cases
 
 Here are some builout cases that we could get started:
 
+- `Hello buildout <hello/hello-buildout.rst>`_ The simple hello buildout.
 - `Quick start guide <docs/quick-start.rst>`_
 - `Simple PHP build package <docs/simple-php.rst>`_ which will include Nginx, MariaDB, PHP, and PHP-FPM
 
